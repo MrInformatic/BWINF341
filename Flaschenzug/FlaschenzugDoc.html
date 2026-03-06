@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flaschenzug (Dokumentation)</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../index.css"/>
+    </head>
+    <body onload="onload()">
+        <div id="main">
+            <header>
+                <h1>Flaschenzug (Dokumentation)</h1>
+            </header>
+            <article class="tacenter">
+                <strong><a href="Flaschenzug.html" class="blacklink">Zum Programm</a></strong>
+            </article>
+            <article>
+                <h2>Gliederung</h2>
+                <ol>
+                    <p><li><strong><a onclick="document.getElementById('AnleitungzumProgramm').scrollIntoView();">Anleitung zum Programm</a></strong></li></p>
+                    <p><li><strong><a onclick="document.getElementById('Loesungsidee').scrollIntoView();">Lösungsidee</a></strong></li></p>
+                    <p><li><strong><a onclick="document.getElementById('Beispiele').scrollIntoView();">Beispiele</a></strong></li></p>
+                    <p><li><strong><a onclick="document.getElementById('Quelltext').scrollIntoView();">Quelltext</a></strong></li></p>
+                </ol>
+            </article>
+            <article id="AnleitungzumProgramm">
+                <h2>Anleitung zum Programm</h2>
+                <p>
+                    Es gibt im Programm eine Funktion, Beispiele zu öffnen. Das Format,
+                    welches in den Beispielen auf der BWINF Website verwendet wird, sollte 
+                    reibungslos funktionieren.
+                </p>
+                <p>
+                    Es gibt zusätzlich im Programm eine Funktion, Beispiele selbst einzufügen. 
+                    Das Format, welches in den Beispielen auf der BWINF Website verwendet wird,
+                    sollte reibungslos funktionieren.
+                </p>
+            </article>
+            <article id="Loesungsidee">
+                <h2>Lösungsidee</h2>
+                <p>
+                    Eine elementare Frage bei einem solchen Problem ist, welche Größen
+                    kennt man?
+                </p>
+                <ol>
+                    <p><li><strong>
+                        Es werden alle Behälter der Reihe nach gefüllt.
+                        D.h., dass es beim letzten Behälter nur eine Möglich keit gibt, ihn
+                        zu befüllen, nämlich alle Flasche aufzunehmen, außer es wird die Kapazität
+                        dises Behälters überschritten.
+                    </strong></li></p>
+                    <p><li><strong>
+                        Zudem gibt es beim Befüllen
+                        mit Flaschen ein Maximum und ein Minimum an Flaschen, das dieser
+                        Behälter aufnehmen kann, was davon abhängt, wieviele Flaschen vom
+                        vorherigen Behälter übrig bleiben.
+                    </strong></li></p>
+                    <p><li><strong>
+                        Das Maximum berechnet sich
+                        aus der Anzahl an übrig gebliebenen Flaschen (es können
+                        ja nicht mehr Flaschen eingefüllt werden, als da sind), nach oben 
+                        begrenzt durch die Kapazität des aktuellen Behälters (es können
+                        ja nicht mehr Flaschen eingefüllt werden, als in den Behäter passen).
+                    </strong></li></p>
+                    <p><li><strong>
+                        Das Minimum berechnet sich aus der Anzahl an übrig gebliebenen 
+                        Flaschen minus die Summe der Kapazität der nachfolgenden Behälter
+                        (es konnen ja nicht so wenig Flaschen eingefüllt werden, dass
+                        die nachfolgenden Behällter diese nicht aufnehmen können), nach unten
+                        begrenzt durch 0 (es kann ja nicht eine negative Menge an Flaschen
+                        eingefüllt werden).
+                    </strong></li></p>
+                    <p><li><strong>
+                        Falls das Maximum über dem Minimum liegt, ist
+                        die Anzahl an übrig gebliebenen Flasche ungültig, da der aktuelle
+                        sowie die nachfolgenden Behälter diese nicht aufnehmen können.
+                    </strong></li></p>
+                    <p><li><strong>
+                        Die Anzahl an Befüllmöglichkeiten für den aktuellen Behälter
+                        ist die Summe der Möglichkeiten
+                        des nachfolgenden Behälters für die Anzahl der übrig gebliebenen
+                        Flaschen minus einem iterierten Wert von minimaler zu maximaler 
+                        Befüllmenge des aktuellen Behälters, also die übrig gebliebenen
+                        Flaschen für den nachfolgenden Behälter.
+                        Das Iterieren des Wertes wird durch eine For-Schleife erzeugt,
+                        die von minimaler zum maximaler Befüllmenge des aktuellen Behälters durchgeht.
+                    </strong></li></p>
+                </ol>  
+                <p>
+                    Nun gibt es zwei Verfahren, die Möglichkeiten diese Behälter
+                    zu befüllen, auszurechnen.
+                </p>
+                <p>
+                    Das erste Verfahren ist die wahrscheinlich offensichtlichere 
+                    aber ineffizientere Methode. Man rechnet einfach das Befüllmaximum
+                    und -minimum des aktuellen Behälters in Abhängigkeit der übrig gebliebenen
+                    Flaschen der vorherigen Behälter aus. Beim ersten Behälter bleiben
+                    alle verfügbaren Flaschen übrig, da ja noch keine Flasche in irgendeinen
+                    Behälter gefüllt wurden. Im nächsten Schritt geht man alle Befüllmöglichkeiten
+                    des aktuellen Behälters von minimaler zur maximalen Befüllmenge durch.
+                    Man wiederholt diesen Prozess nun für den nächsten Behälter und zieht von
+                    den übriggebliebenen Flaschen die Anzahl an Flaschen der aktuellen
+                    Befüllmöglichkeit ab. Wenn man am vorletzten Behälter angekommen ist,
+                    addiert man zu einem Zähler die Anzahl der Möglichkeiten für diesen
+                    hinzu. Diese berechnen sich aus der Differenz von minimaler und
+                    maximaler Befüllmenge dieses Behälters plus eins, da dies die
+                    Anzahl an Schritten ist, um von der minimalen zur maximalen Befüllmenge
+                    zu gelangen, da man weiß, dass der letzte Behälter nur eine Möglichkeit
+                    zur Befüllung hat.
+                </p>
+                <p>
+                    Das zweite Verfahren ist eine Ableitung der ersten Möglichkeit
+                    und deutlich effizienter. Es geht rückwärts die Behälter
+                    durch, da man ja weiß, dass der letzte Behälter immer nur eine
+                    Möglichkeit zum Befüllen hat, außer es sind mehr Flaschen übrig, als
+                    er aufnehmen kann. Jetzt erzeugt man zwei Felder, die die Länge der
+                    maximalen Befüllmöglichkeiten hat, d.h. die Anzahl der verfügbaren Flaschen
+                    plus 1, da man soviele Schritte braucht, um von 0 zu der Anzahl
+                    der Flaschen zu kommen. Es können ja nicht mehr Flaschen eingefüllt
+                    werden, als da sind. Diese 2 Felder nenne ich "Alte Werte" und "Neue Werte".
+                    In das "Alte Werte" Feld kommen Werte, die man schon kennt, also
+                    die Befüllmöglichkeiten des letzten Behälters. Um die Werte des 
+                    vorherigen Behälters auszurechnen, muss man für jede Befüllmöglickeit
+                    dieses Behälters, also von 0 bis zu der Anzahl der verfügbaren Flaschen,
+                    die minimale und maximale Befüllmöglichkeit ausrechnen und damit 
+                    die Anzahl an Befüllmöglichkeiten. Da man die Befüllmöglichkeiten des
+                    vorherigen Behälters weiß, ist hier kein "ressourcenfressender"
+                    rekursiver Aufruf nötig. Dies wiederholt man, bis man die Befüllmöglichkeiten
+                    des zweiten Behälters kennt und rechnet die minimale und maximale
+                    Befüllmenge des ersten Behälters für die Anzahl an verfügbaren
+                    Flaschen aus, da am Anfang noch alle verfügbaren Flaschen übrig sind.
+                    Nun rechnet man anhand dieser die Befüllmöglichkeiten des ersten Behälters
+                    für die Anzahl an verfügbaren Flaschen aus. Auch hier gilt, da man 
+                    die Befüllmöglichkeiten des
+                    vorherigen Behälters weiß, ist hier kein "ressourcenfressender"
+                    rekursiver Aufruf nötig. Die Anzahl der Befüllmöglichkeiten des ersten Behälters
+                    für die Anzahl an verfügbaren Flaschen ist die Anzahl der Befüllmöglichkeiten 
+                    aller Behälter für die Anzahl der vorgegebenen Flaschen und ist
+                    somit das Ergebnis.
+                </p>
+            </article>
+            <article id="Beispiele">
+                <h2>Beispiele</h2>
+                <p>
+                    Ich habe die Beispiele von der Website des Bundeswettbewerbes für 
+                    Informatik genommen. Mein Programm öffnet das verwendete Format 
+                    der Beispiele ohne Probleme.
+                </p>
+                <p><a href="http://www.bundeswettbewerb-informatik.de/aktuell/1-runde/material-341/" class="blacklink"><strong>Beispiele</strong></a></p>
+                <p><a href="Flaschenzug.html" class="blacklink"><strong>Zum Programm</strong></a></p>
+                <h3>Beispiel 1</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;"><strong>
+                    7<br />
+                    2<br />
+                    3 5<br />
+                </strong></p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus: "Es gibt 2 Möglichkeiten, die Flaschen auf die Behälter zu verteilen."
+                </p>
+                <h3>Beispiel 2</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;"><strong>
+                    5<br />
+                    3<br />
+                    2 4 4<br />
+                </strong></p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus: "Es gibt 13 Möglichkeiten, die Flaschen auf die Behälter zu verteilen."
+                </p>
+                <h3>Beispiel 3</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;"><strong>
+                    10<br />
+                    3<br />
+                    5 8 10<br />
+                </strong></p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus: "Es gibt 48 Möglichkeiten, die Flaschen auf die Behälter zu verteilen."
+                </p>
+                <h3>Beispiel 4</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;"><strong>
+                    30<br />
+                    20<br />
+                    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20<br />
+                </strong></p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus: "Es gibt 6209623185136 Möglichkeiten, die Flaschen auf die Behälter zu verteilen."
+                </p>
+                <h3>Beispiel 5</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;"><strong>
+                    3000<br />
+                    11<br />
+                    5 100 100 200 500 500 600 800 800 1000 1000<br />
+                </strong></p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus: "Es gibt 7.435871681741988e+23 Möglichkeiten, die Flaschen auf die Behälter zu verteilen."
+                </p>
+                <h3>Beispiel 6</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;"><strong>
+                    2000<br />
+                    18<br />
+                    100 110 130 170 180 200 220 220 230 250 280 300 340 350 350 370 380 390<br />
+                </strong></p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus: "Es gibt 4.237618332168128e+39 Möglichkeiten, die Flaschen auf die Behälter zu verteilen."
+                </p>
+            </article>
+            <article id="Quelltext">
+                <h2>Quelltext</h2>
+                <p><strong>Sprache : Javascript</strong></p>
+                <p><strong><a href="./Assets/Quelltext/Aufgabe3.js">Aufgabe3</a></strong></p>
+                <p class="tiny">Ich empfehle, diesen Quelltext in einen Editor mit Syntaxhervorhebung(syntax highlighting) zu öffnen.</p>
+                <p class="tiny">Für alle Quellen den Src Ordner des Jeweiligen Projektes.</p>
+            </article>
+            <footer>
+                Philipp Haustein
+            </footer>
+        </div>
+    </body>
+</html>

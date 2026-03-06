@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kassiopeia</title>
+        <meta charset="UTF-8">
+        <script src="Src/Tile.js"></script>
+        <script src="Src/Vector2I.js"></script>
+        <script src="Src/World.js"></script>
+        <script src="Src/WorldRenderer.js"></script>
+        <script src="Src/Renderer.js"></script>
+        <script src="Src/Kassiopeia.js"></script>
+        <link rel="stylesheet" href="../index.css"/>
+    </head>
+    <body onload="onload()">
+        <div id="main">
+            <header>
+                <h1>Kassiopeia</h1>
+            </header>
+            <article id="article">
+                <div id="content">
+                    <canvas width="1000" height="600" id="canvas"></canvas>
+                </div>
+            </article>
+            <article id="open">
+                <div>
+                    <h2>Öffnen</h2>
+                    <p>
+                        Hier konnen sie Level öffnen. Das Format
+                        was in den Beispielen auf der BWINF Website verwendet wird sollte 
+                        Reibungslos Funktioniert.
+                    </p>
+                    <form method="post">
+                        <input id="file" type="file" accept="text/plain" style="font-size:15pt;"/>
+                    </form>
+                    <h2>Oder Einfügen</h2>
+                    <p><textarea cols="100" rows="10" id="Text"></textarea></p>
+                    <p><button style="font-size:15pt;" onclick="Submit()">Bestätigen</button></p>
+                </div>
+            </article>
+            <footer>
+                Philipp Haustein
+            </footer>
+        </div>
+    </body>
+</html>

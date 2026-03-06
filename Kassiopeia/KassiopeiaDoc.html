@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kassiopeia (Dokumentation)</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../index.css"/>
+    </head>
+    <body>
+        <div id="main">
+            <header>
+                <h1>Kassiopeia (Dokumentation)</h1>
+            </header>
+            <article class="tacenter">
+                <strong><a href="Kassiopeia.html" class="blacklink">Zum Programm</a></strong>
+            </article>
+            <article>
+                <h2>Gliederung</h2>
+                <ol>
+                    <p><li><strong><a onclick="document.getElementById('AnleitungzumProgramm').scrollIntoView();">Anleitung zum Programm</a></strong></li></p>
+                    <p><li><strong><a onclick="document.getElementById('Loesungsidee').scrollIntoView();">Lösungsidee</a></strong></li></p>
+                    <p><li><strong><a onclick="document.getElementById('Beispiele').scrollIntoView();">Beispiele</a></strong></li></p>
+                    <p><li><strong><a onclick="document.getElementById('Quelltext').scrollIntoView();">Quelltext</a></strong></li></p>
+                </ol>
+            </article>
+            <article id="AnleitungzumProgramm">
+                <h2>Anleitung zum Programm</h2>
+                <table border="1" width="100%">
+                    <tr>
+                        <th>Bild</th>
+                        <th>Funktion</th>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><img src="Assets/Tools/Grass.png" style="padding:25px;"/></td>
+                        <td><strong>Dieses Werkzeug benutzt man, um Grasfelder zu malen.</strong></td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><img src="Assets/Tools/Wall.png" style="padding:25px;"/></td>
+                        <td><strong>Dieses Werkzeug benutzt man, um Wandfelder zu malen.</strong></td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><img src="Assets/Tools/Kassiopeia.png" style="padding:25px;"/></td>
+                        <td><strong>Dieses Werkzeug benutzt man, um Kassiopeia in die Welt zu setzen.</strong></td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><img src="Assets/Tools/Open.png" style="padding:25px;"/></td>
+                        <td><strong>Dieses Werkzeug benutzt man, um Level zu öffnen</strong></td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><img src="Assets/Tools/Scan.png" style="padding:25px;"/></td>
+                        <td><strong>Dieses Werkzeug benutzt man, um zu schauen, ob Kassiopeia alle Grasfelder erreicht.(Junioraufgabe 2)</strong></td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><img src="Assets/Tools/PathFinding.png" style="padding:25px;"/></td>
+                        <td><strong>Dieses Werkzeug benutzt man, um zu schauen, ob Kassiopeia alle Grasfelder erreicht ohne dabei ein bereits überquertes Feld zu überqueren.(Aufgabe 1)</strong></td>
+                    </tr>
+                </table>
+                <p>
+                    Es gibt weiter unten im Programm eine Funktion, Level zu öffnen. Das Format,
+                    welches in den Beispielen auf der BWINF Website verwendet wird, sollte
+                    reibungslos funktionieren.
+                </p>
+                <p>
+                    Im Programm bei Junioraufgabe2 und Aufgabe1
+                    wird der Vorgang der Lösung visualisiert. Während der Visualisierung kann der 
+                    Benutzer nicht mit der GUI (Graphical user interface) interagieren. 
+                </p>
+            </article>
+            <article id="Loesungsidee">
+                <h2>Lösungsidee</h2>
+                <p>
+                    Bei Kassiopeia handelt es sich um eine Schildkröte die sich in einem
+                    2-dimensionalen Feld(Array) aus Feldern(tiles) befindet. Es gibt
+                    2 Arten von Feldern Wand- und Grasfelder. Zuerst widme ich mich der
+                    Lösungsidee der 2. Junioraufgabe
+                </p>
+                <h3>2. Junioraufgabe</h3>
+                <p>
+                    Kassiopeia muss als Voraussetzung nur alle Grasfelder erreichen
+                    können, ohne dabei ein Wandfeld überwinden zu müssen. Hierfür müsste 
+                    ein einfacher Voxelanalyse-Algorithmus reichen, der als Ursprungspunkt 
+                    Kassiopeia nimmt und analysiert, ob alle Grasfelder zusammenhängen.
+                    Der Algorithmus funktioniert folgendermaßen:
+                </p>
+                <ol>
+                    <p><li style="color:#0080FF;"><strong>
+                        Zahle die Anzahl der Grasfelder.
+                    </strong></li></p>
+                    <p><li style="color:#0080FF;"><strong>
+                        Lege eine Liste von Feldern an.
+                    </strong></li></p>
+                    <p><li style="color:#0080FF;"><strong>
+                        Füge das Feld von Kassiopeia zur Liste hinzu und markiere 
+                        das Feld, welches zur Liste hinzugefügt wurde.
+                    </strong> </li></p>
+                    <p><li style="color:#008000;"><strong>
+                        Schleife
+                    </strong></li></p>
+                    <p><li style="color:#FF8000;"><strong>
+                        Gehe alle Felder der Liste durch
+                    </strong> </li></p>
+                    <p><li style="color:#FF8000;"><strong>
+                        Wenn das Feld links neben, rechts neben, über oder unter
+                        dem aktuellen Feld kein Wandfeld ist und noch nicht zur
+                        Liste hinzugefügt wurde, dann füge dieses Feld zur Liste
+                        hinzu.
+                    </strong></li></p>
+                    <p><li style="color:#008000;"><strong>
+                        Wenn ein Feld hinzugefügt wurde, dann springe zum Anfang 
+                        der Schleife.
+                    </strong></li></p>
+                    <p><li style="color:#8000FF;"><strong>
+                        Wenn die Anzahl der Grasfelder gleich der Anzahl der Felder 
+                        in der Liste ist, dann kann Kassiopeia alle Felder erreichen,
+                        da alle Felder zusammenhängen.
+                    </strong></li></p>
+                </ol>
+                <h3>1. Aufgabe</h3>
+                <p>
+                    Die 1. Aufgabe war deutlich kniffliger als die 2. Junioraufgabe,
+                    da jetzt noch dazukommt, dass Kassiopeia kein Feld doppelt überqueren
+                    darf. Die beste Möglichkeit, so etwas zu lösen  ist, ein Bruteforce-Pathfindig-Algorithmus.
+                    Ein Bruteforce-Pathfindig-Algorithmus ist ein Algorithmus, der
+                    alle Wegmöglichkeiten durchprobiert. Zusätzlich muss ich noch
+                    eine Regel einfügen, dass dieser Weg sich nicht keuzen darf, sodass
+                    Kassiopeia nicht 2-mal ein Feld überquert. Die Schwierigkeit war,
+                    alle Wege durchzuprobieren ohne einen auszulassen oder einen
+                    doppelt zu probieren. Die Lösung war, dass ich nicht den Weg als
+                    Felder darstelle, über die Kassiopeia geht, sondern die Bewegung
+                    von Kassiopeia als Norden, Süden, Westen und Osten. Der Algorithmus 
+                    funktioniert folgendermaßen:
+                </p>
+                <ol>
+                    <p><li style="color:#8000FF;"><strong>
+                        Als Erstes führe ich den Algorithmus von der 2. Junioraufgabe
+                        durch und warte, bis ein Ergebnis dieses Algorithmus zurückkommt,
+                        denn wenn Kassiopeia sowieso nicht alle Grasfelder erreichen kann,
+                        gibt es auch keinen optimalen Weg, über den Kassiopeia alle Grasfelder
+                        erreicht, ohne eins doppelt zu überqueren.
+                    </strong></li></p>
+                    <p><li  style="color:#0080FF;"><strong>
+                        Zahle die Anzahl der Grasfelder.
+                    </strong></li></p>
+                    <p><li  style="color:#0080FF;"><strong>
+                        Lege eine Liste aus Richtungen(Norden, Süden, Westen und Osten) an.
+                    </strong></li></p>
+                    <p><li  style="color:#0080FF;"><strong>
+                        Setze alle Glieder der Liste auf Osten.
+                    </strong></li></p>
+                    <p><li  style="color:#0080FF;"><strong>
+                        Erstelle eine Scanner in Form einer Position und setze ihn
+                        auf die Position von Kassiopeia und markiere das Feld, auf 
+                        welches der Scanner zeigt, dass der Scanner auf diesem Feld 
+                        schon war.
+                    </strong></li></p>
+                    <p><li  style="color:#0080FF;"><strong>
+                        Erstelle einen Zähler, der die Länge des Weges symbolisiert 
+                    </strong></li></p>
+                    <p><li  style="color:#008000;"><strong>
+                        Schleife
+                    </strong></li></p>
+                    <p><li  style="color:#FF8000;"><strong>
+                        Gebe die aktuelle Richtung anhand der Länge des Weges an. Gebe
+                        das Feld, welches in dieser Richtung liegt, relativ zur Position 
+                        des Scanners an. Ist dieses Feld kein Wandfeld und war der Scanner
+                        auf diesem Feld noch nicht gewesen, 
+                    </strong></li></p>
+                    <p><li  style="color:#FF8000;"><strong>
+                        dann bewege den Scanner
+                        in diese Richtung, markiere das Feld, auf welches der Scanner 
+                        zeigt, der Scanner auf diesem Feld schon war, verlängere/erhöhe
+                        den Zähler für die Länge des Weges um 1 und springe in den 
+                        nächsten Durchlauf der Schleife.
+                    </strong></li></p>
+                    <p><li  style="color:#FF8000;"><strong>
+                        Anderenfalls probiere im nächsten Durchlauf der Schleife
+                        eine andere Richtung oder falls alle Richtungen ausprobiert
+                        worden sind,
+                    </strong></li></p>
+                    <p><li  style="color:#FF8000;"><strong>
+                        lösche die Markierung des Feldes, auf welches der Scanner 
+                        zeigt, der Scanner auf diesen Feld schon war. Bewege den
+                        Scanner wieder zurück in die Richtung aus die er gekommen 
+                        ist, setze die aktuelle Richtung anhand der Länge des Weges
+                        auf Osten, verkürze/verringere dann den Zähler für die länge
+                        des Weges um 1 und probiere eine andere Richtung anhand der
+                        jetzt aktuellen Länge des Weges im nächsten Schleifendurchlauf.
+                        Oder falls alle Richtungen ausprobiert worden sind, wiederhole 
+                        11. im nächsten Schleifendurchlauf.
+                    </strong></li></p>
+                    <p><li  style="color:#008000;"><strong>
+                        Wenn der Scanner bewegt wurde oder eine andere Richtung 
+                        probiert werden soll und der Zähler für die Länge des Weges
+                        um eins erhöht kleiner als die Anzahl der Grasfelder ist,
+                        weil man braucht 11 Längeneinheiten, um 12 Grasfelder zu überwinden, wenn jedes
+                        Feld quadratisch ist und jede Seite 1 Längeneinheit lang ist, dann springe 
+                        zum Anfang der Schleife.
+                    </strong></li></p>
+                    <p><li style="color:#8000FF;"><strong>
+                        Wenn die Länge des Weges
+                        um eins erhöht gleich der Anzahl der Grasfelder ist,
+                        dann kann Kassiopeia alle Grasfelder überqueren, ohne dabei ein
+                        Feld doppelt zu überqueren,
+                        da man 11 Längeneinheiten braucht um 12 Felder zu überwinden ohne dabei
+                        eins doppelt zu überwinden, wenn jedes
+                        Feld quadratisch ist und jede Seite 1 Längeneinheit lang ist.
+                    </strong></li></p>
+                </ol>
+            </article>
+            <article id="Beispiele">
+                <h2>Beispiele</h2>
+                <p>
+                    Ich habe die Beispiele von der Website des Bundeswettbewerbes für
+                    Informatik genommen. Mein Programm öffnet das verwendete Format 
+                    der Level ohne Probleme. Im Programm bei Junioraufgabe2 und Aufgabe1
+                    wird der Vorgang der Lösung visualisiert. Während der Visualisierung kann der 
+                    Benutzer nicht mit der GUI (Graphical user interface) interagieren. 
+                </p>
+                <p><a href="http://www.bundeswettbewerb-informatik.de/aktuell/1-runde/material-341/" class="blacklink"><strong>Beispiele</strong></a></p>
+                <p><a href="Kassiopeia.html" class="blacklink"><strong>Zum Programm</strong></a></p>
+                <h3>Beispiel 1</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;">
+                    6 9<br />
+                    #########<br />
+                    #&nbsp; #&nbsp;&nbsp;&nbsp; #<br />
+                    #&nbsp; # #&nbsp; #<br />
+                    #&nbsp; K #&nbsp; #<br />
+                    #&nbsp;&nbsp;&nbsp; #&nbsp; #<br />
+                    #########
+                </p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus:
+                <ul>
+                    <p><li>Bei Junioraufgabe 2, dass Kassiopeia alle Grasfelder erreicht, aus.</li></p>
+                    <p><li>Bei Aufgabe 1, dass Kassiopeia alle Grasfelder erreicht, ohne ein Grasfeld doppelt überqueren zu müssen, aus.(WNNWSSSOOONNNOOOSWSOSW)</li></p>
+                </ul>
+                </p>
+                <h3>Beispiel 2</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;">
+                    7 11<br />
+                    ###########<br />
+                    #&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp; #<br />
+                    #&nbsp;&nbsp; ###&nbsp;&nbsp; #<br />
+                    #&nbsp;&nbsp; #&nbsp;&nbsp;&nbsp;&nbsp; #<br />
+                    # K ###&nbsp;&nbsp; #<br />
+                    #&nbsp;&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp; #<br />
+                    ###########
+                </p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus:
+                <ul>
+                    <p><li>Bei Junioraufgabe 2, dass Kassiopeia nicht alle Grasfelder erreicht, aus.</li></p>
+                    <p><li>Bei Aufgabe 1, dass Kassiopeia nicht alle Grasfelder erreicht, aus.</li></p>
+                </ul>
+                </p>
+                <h3>Beispiel 3</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;">
+                    5 8<br />
+                    ########<br />
+                    #&nbsp; K&nbsp;&nbsp; #<br />
+                    # ###&nbsp; #<br />
+                    #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #<br />
+                    ########
+                </p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus:
+                <ul>
+                    <p><li>Bei Junioraufgabe 2, dass Kassiopeia alle Grasfelder erreicht, aus.</li></p>
+                    <p><li>Bei Aufgabe 1, dass Kassiopeia alle Grasfelder erreicht, aber nicht ohne ein Grassfeld doppelt überqueren zu müssen, aus.</li></p>
+                </ul>
+                </p>
+                <h3>Beispiel 4</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;">
+                    5 9<br />
+                    #########<br />
+                    #&nbsp; K&nbsp;&nbsp;&nbsp; #<br />
+                    # ###&nbsp;&nbsp; #<br />
+                    #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #<br />
+                    #########
+                </p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus:
+                <ul>
+                    <p><li>Bei Junioraufgabe 2, dass Kassiopeia alle Grasfelder erreicht, aus.</li></p>
+                    <p><li>Bei Aufgabe 1, dass Kassiopeia alle Grasfelder erreicht, ohne ein Grassfeld doppelt überqueren zu müssen, aus.(OOOOSSWNWSWWWWNNO)</li></p>
+                </ul>
+                </p>
+                <h3>Beispiel 5</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;">
+                    3 15<br />
+                    ###############<br />
+                    #&nbsp;&nbsp;&nbsp;&nbsp; K&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #<br />
+                    ###############
+                </p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus:
+                <ul>
+                    <p><li>Bei Junioraufgabe 2, dass Kassiopeia alle Grasfelder erreicht, aus.</li></p>
+                    <p><li>Bei Aufgabe 1, dass Kassiopeia alle Grasfelder erreicht, aber nicht ohne ein Grasfeld doppelt überqueren zu müssen, aus.</li></p>
+                </ul>
+                </p>
+                <h3>Beispiel 6</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;">
+                    3 15<br />
+                    ###############<br />
+                    #&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; K#<br />
+                    ###############
+                </p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus:
+                <ul>
+                    <p><li>Bei Junioraufgabe 2, dass Kassiopeia alle Grasfelder erreicht, aus.</li></p>
+                    <p><li>Bei Aufgabe 1, dass Kassiopeia alle Grasfelder erreicht, ohne ein Grasfeld doppelt überqueren zu müssen, aus.(WWWWWWWWWWWW)</li></p>
+                </ul>
+                </p>
+                <h3>Beispiel 7</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;">
+                    5 7<br />
+                    #######<br />
+                    #K&nbsp;&nbsp;&nbsp; #<br />
+                    # # # #<br />
+                    # # # #<br />
+                    #######
+                </p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus:
+                <ul>
+                    <p><li>Bei Junioraufgabe 2, dass Kassiopeia alle Grasfelder erreicht, aus.</li></p>
+                    <p><li>Bei Aufgabe 1, dass Kassiopeia alle Grasfelder erreicht, aber nicht ohne ein Grasfeld doppelt überqueren zu müssen, aus.</li></p>
+                </ul>
+                </p>
+                <h3>Beispiel 8</h3>
+                <p style="font-family: 'Lucida Console', Monaco, monospace;">
+                    5 12<br />
+                    ############<br />
+                    #K&nbsp; #&nbsp;&nbsp;&nbsp; # #<br />
+                    # #&nbsp;&nbsp;&nbsp; #&nbsp;&nbsp; #<br />
+                    #&nbsp;&nbsp;&nbsp; #&nbsp; #&nbsp; #<br />
+                    ############
+                </p>
+                <p>
+                    Bei diesem Beispiel gibt das Programm aus:
+                <ul>
+                    <p><li>Bei Junioraufgabe 2, dass Kassiopeia alle Grasfelder erreicht, aus.</li></p>
+                    <p><li>Bei Aufgabe 1, dass Kassiopeia alle Grasfelder erreicht, aber nicht ohne ein Grasfeld doppelt überqueren zu müssen, aus.</li></p>
+                </ul>
+                </p>
+            </article>
+            <article id="Quelltext">
+                <h2>Quelltext</h2>
+                <p><strong>Sprache : Javascript</strong></p>
+                <p><strong><a href="./Assets/Quelltext/Junioraufgabe2.js">Junioraufgabe2</a></strong></p>
+                <p><strong><a href="./Assets/Quelltext/Aufgabe1.js">Aufgabe1</a></strong></p>
+                <p class="tiny">Ich empfehle, diesen Quelltext in einen Editor mit Syntaxhervorhebung(syntax highlighting) zu öffnen.</p>
+                <p class="tiny">Für alle Quellen den Src Ordner des jeweiligen Projektes.</p>
+            </article>
+            <footer>
+                Philipp Haustein
+            </footer>
+        </div>
+    </body>
+</html>

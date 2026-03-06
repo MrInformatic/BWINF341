@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ameisenfutter</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../index.css"/>
+        <script src="Src/Ant.js"></script>
+        <script src="Src/Food.js"></script>
+        <script src="Src/World.js"></script>
+        <script src="Src/Ameisenfutter.js"></script>
+    </head>
+    <body onload="onload()" onunload="onunload()">
+        <div id="main">
+            <header>
+                <h1>Ameisenfutter</h1>
+            </header>
+            <article id="article">
+                <div id="content" style="display: table; margin-left:auto; margin-right: auto;">
+                    <canvas width="1000" height="1000" id="canvas"></canvas>
+                </div>
+            </article>
+            <article>
+                <h2>Simulationsgeschwindikeit</h2>
+                <div style="display: table; margin-left:auto; margin-right: auto;">
+                    <button onclick="setspeed(2)">super schnell</button>
+                    <button onclick="setspeed(5)">schnell</button>
+                    <button onclick="setspeed(10)">normal</button>
+                    <button onclick="setspeed(25)">langsam</button>
+                    <button onclick="setspeed(50)">super langsam</button>
+                </div>
+            </article>
+            <article>
+                <h2>Einstellungen</h2>
+                <p>
+                    Hier konnen sie Simmulationswerte einfügen oder anpassen.
+                </p>
+                <div style="display: table; margin-left:auto; margin-right: auto;">
+                    <form action="javascript:void(0);" method="get" onsubmit="update(event)">
+                        <table width="1000px" style="border-collapse: separate;border-spacing: 0 10px;">
+                            <tr>
+                                <td width="50%" style="text-align: right;"><strong>Simulationswelt Breite:</strong></td>
+                                <td width="50%"><input type="text" name="sizex" value="500"/></td>
+                            </tr>
+                            <tr>
+                                <td width="50%" style="text-align: right;"><strong>Simulationswelt Höhe:</strong></td>
+                                <td width="50%"><input type="text" name="sizey" value="500"/></td>
+                            </tr>
+                            <tr>
+                                <td width="50%" style="text-align: right;"><strong>Anzahl der Ameisen:</strong></td>
+                                <td width="50%"><input type="text" name="a_count" value="100"/></td>
+                            </tr>
+                            <tr>
+                                <td width="50%" style="text-align: right;"><strong>Anzahl der Futterquellen:</strong></td>
+                                <td width="50%"><input type="text" name="f_count" value="5"/></td>
+                            </tr>
+                            <tr>
+                                <td width="50%" style="text-align: right;"><strong>Anzahl der Futterportionen pro Futterquelle:</strong></td>
+                                <td width="50%"><input type="text" name="f_amount" value="50"/></td>
+                            </tr>
+                            <tr>
+                                <td width="50%" style="text-align: right;"><strong>Länge der Verdunstungsdauer in Simulationsschritten:</strong></td>
+                                <td width="50%"><input type="text" name="p_duration" value="2500"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center;"><input type="submit" value="Anwenden"/></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            </article>
+            <footer>
+                Philipp Haustein
+            </footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <title>Ameisenfutter (Dokumentation)</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../index.css"/>
+    </head>
+    <body>
+        <div id="main">
+            <header>
+                <h1>Ameisenfutter (Dokumentation)</h1>
+            </header>
+            <article class="tacenter">
+                <strong><a href="Ameisenfutter.html" class="blacklink">Zum Programm</a></strong>
+            </article>
+            <article>
+                <h2>Gliederung</h2>
+                <ol>
+                    <p><li><strong><a onclick="document.getElementById('AnleitungzumProgramm').scrollIntoView();">Anleitung zum Programm</a></strong></li></p>
+                    <p><li><strong><a onclick="document.getElementById('Loesungsidee').scrollIntoView();">Lösungsidee</a></strong></li></p>
+                    <p><li><strong><a onclick="document.getElementById('Beispiele').scrollIntoView();">Beispiele</a></strong></li></p>
+                    <p><li><strong><a onclick="document.getElementById('Quelltext').scrollIntoView();">Quelltext</a></strong></li></p>
+                </ol>
+            </article>
+            <article id="AnleitungzumProgramm">
+                <h2>Anleitung zum Programm</h2>
+                <table border="1px" width="100%">
+                    <tr>
+                        <th>Farbe</th>
+                        <th>Bedeutung</th>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><div style="width:50px;height:50px;border:1px solid #000;margin:25px; background-color: #008000;"></div></td>
+                        <td>
+                           Hintergrund
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><div style="width:50px;height:50px;border:1px solid #000;margin:25px; background-color: #FFFF00;"></div></td>
+                        <td>
+                           Futterquelle
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><div style="width:50px;height:50px;border:1px solid #000;margin:25px; background-color: #FF0000;"></div></td>
+                        <td>
+                           Ameise ohne Futter
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><div style="width:50px;height:50px;border:1px solid #000;margin:25px; background-color: #0000FF;"></div></td>
+                        <td>
+                           Ameise mit Futter
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><div style="width:50px;height:50px;border:1px solid #000;margin:25px; background-color: #000000;"></div></td>
+                        <td>
+                           Nest der Ameisen
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100px" height="100px"><div style="width:50px;height:50px;border:1px solid #000;margin:25px; background-color: #0080FF;"></div></td>
+                        <td>
+                           Pheromon
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    Es gibt weiter unten im Programm eine Funktion, andere Simmulationswerte
+                    einzustellen und die Simmulationsgeschwindigkeit anzupassen!
+                </p>
+            </article>
+            <article id="Loesungsidee">
+                <h2>Lösungsidee</h2>
+                <p>
+                    Grundsätzlich haben wir es bei den Ameisen mit Objekten zu tun, die eine
+                    Position und zwei Zustände haben. Diese Zustände beschreiben, ob die 
+                    Ameise Essen transportiert oder nicht. Außerdem wissen die Ameisen 
+                    immer, wo sich das Nest befindet. Zudem befinden sich alle Ameisen 
+                    zum Anfang im Nest.
+                </p>
+                <p>    
+                    Die Pheromonpunkte werden als zweidimensionales Feld (Array)
+                    beschrieben. Jeder Wert dieser Zelle ist eine Ganzzahl(Integer) 
+                    und zum Anfang 0, d.h. kein Pheromon ist vorhanden. Zudem werden 
+                    die Felder, auf denen Pheromon vorhanden ist, eingefärbt.
+                </p>
+                <p> 
+                    Die Futterquellen sind Objekte mit einer Position und einer
+                    Anzahl an Futterportionen. Diese Futterquellen werden zum Anfang
+                    zufällig auf dem Feld verteilt und mit einer vorgegebenen Anzahl
+                    an Futterportionen befüllt. Zudem wird jede Futterquelle, die
+                    keine Futterportionen mehr enthält, entfernt.
+                </p>
+                <p>
+                    Jede einzelne Ameisen bewegt sich wie folgt:
+                </p>
+                <ol>
+                    <p><li style="color:#0080FF;"><strong>
+                        Wenn die Ameise Futter trägt, geht diese auf das benachbarte 
+                        Feld, welches am nächsten am Nest liegt.
+                    </strong></li></p>
+                    <p><li style="color:#0080FF;"><strong>
+                        Falls die Ameise auf einer Futterquelle steht und kein Futter
+                        trägt, dann nimmt die Ameise eine Futterportion.
+                    </strong></li></p>
+                    <p><li style="color:#0080FF;"><strong>
+                        Wenn die Ameise kein Futter trägt, untersucht sie die Pheromonkonzentration
+                        der umliegenden Felder und geht auf das Feld, welches die höchsten Pheromonkonzentration
+                        hat und  am weitesten entfernt vom Nest liegt.
+                    </strong></li></p>
+                    <p><li style="color:#0080FF;"><strong>
+                        Falls auf den umliegenden Feldern kein Phereromon vorhanden
+                        ist, geht die Ameise in eine zufällige Richtung.
+                    </strong></li></p>
+                </ol>
+            </article>
+            <article id="Beispiele">
+                <h2>Beispiele</h2>
+                <p style="text-align: center;"><a href="Ameisenfutter.html" class="blacklink"><strong>Zum Programm</strong></a></p>
+                <h3>Gefordert in der Aufgabe</h3>
+                <table width="1000px" style="border-collapse: separate;border-spacing: 0 10px;">
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Simulationswelt Breite:</strong></td>
+                        <td width="50%">500</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Simulationswelt Höhe:</strong></td>
+                        <td width="50%">500</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Anzahl der Ameisen:</strong></td>
+                        <td width="50%">100</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Anzahl der Futterquellen:</strong></td>
+                        <td width="50%">5</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Anzahl der Futterportionen pro Futterquelle:</strong></td>
+                        <td width="50%">50</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Länge der Verdunstungsdauer in Simulationsschritten:</strong></td>
+                        <td width="50%">2500</td>
+                    </tr>
+                </table>
+                <h3>Empfohlen</h3>
+                <table width="1000px" style="border-collapse: separate;border-spacing: 0 10px;">
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Simulationswelt Breite:</strong></td>
+                        <td width="50%">100</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Simulationswelt Höhe:</strong></td>
+                        <td width="50%">100</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Anzahl der Ameisen:</strong></td>
+                        <td width="50%">100</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Anzahl der Futterquellen:</strong></td>
+                        <td width="50%">5</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Anzahl der Futterportionen pro Futterquelle:</strong></td>
+                        <td width="50%">50</td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="text-align: right;"><strong>Länge der Verdunstungsdauer in Simulationsschritten:</strong></td>
+                        <td width="50%">500</td>
+                    </tr>
+                </table>
+            </article>
+            <article id="Quelltext">
+                <h2>Quelltext</h2>
+                <p><strong>Sprache : Javascript</strong></p>
+                <p><strong><a href="./Assets/Quelltext/Aufgabe2.js">Aufgabe2</a></strong></p>
+                <p class="tiny">Ich empfehle diesen Quelltext in einen Editor mit Syntaxhervorhebung(syntax highlighting) zu öffnen.</p>
+                <p class="tiny">Für alle Quellen den Src Ordner des jeweiligen Projektes.</p>
+            </article>
+            <footer>
+                Philipp Haustein
+            </footer>
+        </div>
+    </body>
+</html>
